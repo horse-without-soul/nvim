@@ -6,19 +6,25 @@
 local M = {}
 
 M.base46 = {
-	theme = "onedark",
-
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+  theme = "onedark"
 }
 
--- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.ui = {
+  tabufline = {
+    lazyload = false
+  }
+}
+
+local servers = {}
+
+for _, language in pairs(require "languages") do
+    if language.server ~= nil then
+        table.insert(servers, language.server)
+    end
+end
+
+M.mason = {
+  pkgs = servers
+}
 
 return M

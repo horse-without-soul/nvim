@@ -1,10 +1,21 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+map("n", "<leader>nf", function()
+  require("neogen").generate({})
+end, { desc = "neogen generate docs" })
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("n", "<leader>gg", function()
+  require("neogit").open()
+end, { desc = "neogit open"})
+
+local nomap = vim.keymap.del
+
+-- Delete number and relativenumber toggle
+nomap("n", "<leader>n")
+nomap("n", "<leader>rn")
+-- Delete telescope view of git log and commit
+nomap("n", "<leader>gt")
+nomap("n", "<leader>cm")

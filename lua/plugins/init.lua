@@ -1,11 +1,10 @@
 return {
-  {
+  { -- Disable default plugin
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
+    enabled = false,
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
+  -- LSP
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -13,16 +12,32 @@ return {
     end,
   },
 
-  -- test new blink
-  -- { import = "nvchad.blink.lazyspec" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+  	  ensure_installed = require "configs.treesitter"
+    },
+  },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  -- Documentation generator
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    -- Lazy loading
+    cmd = "Neogen",
+    keys = { "<leader>nf", },
+    opts = {},
+  },
+
+  -- Github integration
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Neogit",
+    keys = { "<leader>gg", },
+    opts = { kind = "floating", },
+  },
 }
